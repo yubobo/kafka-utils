@@ -1,3 +1,12 @@
+# Set ENV to 'YELP' if FQDN ends in '.yelpcorp.com'
+# Otherwise, set ENV to the FQDN
+ifeq ($(findstring .yelpcorp.com,$(shell hostname -f)), .yelpcorp.com)
+    export PIP_INDEX_URL ?= https://pypi.yelpcorp.com/simple
+else
+    export PIP_INDEX_URL ?= https://pypi.python.org/simple
+endif
+
+
 PACKAGE_VERSION := $(shell python setup.py --version)
 
 all: test
